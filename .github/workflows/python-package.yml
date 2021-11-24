@@ -30,3 +30,11 @@ jobs:
       run: |
         python -m pytest -vv
       
+    - name: deployment to jfrog
+      run: | 
+       python -m build  
+       #this will create the new package in order to upload it
+       
+       twine upload --repository-url https://otomato.jfrog.io/artifactory/api/pypi/pypi-local --username devops --password ${{ secrets.ARTIFACT_PASS }} dist/*
+       #this will upload the package to jfrog using the login info encrypted via secrets
+      
